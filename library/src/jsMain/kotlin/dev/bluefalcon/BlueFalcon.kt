@@ -1,6 +1,5 @@
 package dev.bluefalcon
 
-import AdvertisementDataRetrievalKeys
 import dev.bluefalcon.external.Bluetooth
 import dev.bluefalcon.external.BluetoothOptions
 import kotlinx.browser.window

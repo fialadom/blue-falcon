@@ -1,6 +1,5 @@
 package dev.bluefalcon
 
-import AdvertisementDataRetrievalKeys
 import android.Manifest
 import android.bluetooth.*
 import android.bluetooth.BluetoothAdapter.STATE_CONNECTED

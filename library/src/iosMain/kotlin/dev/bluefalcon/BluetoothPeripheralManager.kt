@@ -1,6 +1,5 @@
 package dev.bluefalcon
 
-import AdvertisementDataRetrievalKeys
 import platform.CoreBluetooth.*
 import platform.Foundation.NSData
 import platform.Foundation.NSError
