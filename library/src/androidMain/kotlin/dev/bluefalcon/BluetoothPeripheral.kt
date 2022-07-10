@@ -13,4 +13,8 @@ actual class BluetoothPeripheral(val bluetoothDevice: BluetoothDevice) {
     actual var rssi: Float? = null
 
     var deviceServices: List<BluetoothService> = listOf()
+
+    override fun toString(): String {
+        return "${bluetoothDevice.name};${bluetoothDevice.address}"
+    }
 }

@@ -12,6 +12,8 @@ import android.os.ParcelUuid
 import java.nio.ByteBuffer
 import java.util.*
 
+val CLIENT_CHARACTERISTIC_CONFIGURATION: UUID =
+    UUID.fromString("00002902-0000-1000-8000-00805f9b34fb")
 
 actual class BlueFalcon actual constructor(
     private val context: ApplicationContext,
@@ -98,12 +100,13 @@ actual class BlueFalcon actual constructor(
     ) {
         mGattClientCallback.gattForDevice(bluetoothPeripheral.bluetoothDevice)?.let { gatt ->
             fetchCharacteristic(bluetoothCharacteristic, gatt)
-                .forEach {
-                    gatt.setCharacteristicNotification(it.characteristic, enable)
-                    it.characteristic.descriptors.forEach { descriptor ->
-                        descriptor.value = descriptorValue
-                        gatt.writeDescriptor(descriptor)
+                .forEach { characteristic ->
+                    gatt.setCharacteristicNotification(characteristic.characteristic, enable)
+                    val descriptor = characteristic.characteristic.descriptors.first {
+                        it.uuid == CLIENT_CHARACTERISTIC_CONFIGURATION
                     }
+                    descriptor.value = descriptorValue
+                    gatt.writeDescriptor(descriptor)
                 }
         }
     }
@@ -198,7 +201,7 @@ actual class BlueFalcon actual constructor(
                     writeType?.let { writeType ->
                         it.characteristic.writeType = writeType
                     }
-                    it.characteristic.setValue(value)
+                    it.characteristic.value = value
                     gatt.writeCharacteristic(it.characteristic)
                 }
         }
